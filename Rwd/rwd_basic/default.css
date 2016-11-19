@@ -5,7 +5,7 @@
 
 	body
 	{
-		margin: 0px;
+		margin: 0px;`
 		padding: 0px;
 		background: #2056ac;
 		font-family: 'Questrial', sans-serif;
@@ -56,6 +56,7 @@
 	{
 		margin: 0px auto;
 		width:100%;
+		max-width:1280px;
 	}
 
 
@@ -78,8 +79,8 @@
 	}
 
 	ul.contact li span
-	{
-		display: none;
+	{c
+		display: none;c
 		margin: 0;
 		padding: 0;
 	}
@@ -179,10 +180,11 @@
 	#banner
 	{
 		padding-top: 5em;
+		text-align:center;
 	}
 
 	#banner img {
-		width: 100%;
+		max-width:100%;
 	}
 
 /*********************************************************************************/
