@@ -18,3 +18,8 @@
 }
 
 /* implement layout degradation (the sidebar goes down) when width < 800px */
+@media screen and (max-width:800px) {
+    .content, .sidebar {
+        width:100%;
+    }
+}
