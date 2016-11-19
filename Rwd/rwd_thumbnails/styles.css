@@ -4,16 +4,39 @@
     background: #e90000;
     line-height: 0em;
     float: left;
-    width: 16%;
-    min-height: 5em;
-    margin: 0 0.666% 0.666% 0;
+    width: 33%;
+    margin: 0 0.5% 0.5% 0;
 }
-
-.thumbnail:nth-child(6n) {
+.thumbnail:nth-child(3n) {
     margin-right: 0;
 }
+.thumbnail img {
+    max-width:100%;
+}
 
-/* implement media queries to
-    -  break after 4th thumbnail when width < 1200px
-    -  break after 3rd thumbnail when width < 800px
-*/
+@media screen and (min-width:800px) and (max-width:1200px) {
+    .thumbnail {
+        width:24.75%;
+        margin:0 0.333% 0.333% 0;
+    }
+    .thumbnail:nth-child(3n) {
+        margin-right: 0.333%;
+    }
+    .thumbnail:nth-child(4n) {
+        margin-right: 0;
+    }
+}
+
+
+@media screen and (min-width:1200px) {
+    .thumbnail {
+        width:16%;
+        margin:0 0.8% 0.8% 0;
+    }
+    .thumbnail:nth-child(3n) {
+        margin-right: 0.8%;
+    }
+    .thumbnail:nth-child(6n) {
+        margin-right: 0;
+    }
+}

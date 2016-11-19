@@ -7,19 +7,16 @@
 }
 .content {
     background: #b80000;
-    width: 100%;
+    float: left;
+    width: 66.6666%;
 }
 .sidebar {
     background: #00b800;
-    width: 100%;
+    float: right;
+    width: 33.3333%;
 }
-@media screen and (min-width:800px) {
-    .content {
-        float:left;
-        width:66.6%;
-    }
-    .sidebar {
-        float:right;
-        width:33.3%;
+@media screen and (max-width:800px) {
+    .content, .sidebar {
+        width:100%;
     }
 }
