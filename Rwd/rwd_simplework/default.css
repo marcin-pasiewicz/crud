@@ -56,7 +56,8 @@ a:hover
 .container
 {
 	margin: 0px auto;
-	width: 1200px;
+	max-width: 1200px;
+	width:100%;
 }
 
 /*********************************************************************************/
@@ -450,7 +451,7 @@ ul.contact li a.icon-rss:before
 	text-align: center;
 }
 
-#menu li a, #menu li span
+#menu li a, #menu li span, .menu-trigger a
 {
 	display: inline-block;
 	margin-left: 1px;
@@ -467,7 +468,7 @@ ul.contact li a.icon-rss:before
 {
 }
 
-#menu .current_page_item a
+#menu .current_page_item a, .menu-trigger a
 {
 	background: #1757ae;
 	border-radius: 30px;
@@ -493,7 +494,7 @@ ul.contact li a.icon-rss:before
 #banner
 {
 	overflow: hidden;
-	width: 1000px;
+	width: 70%;
 	text-align: center;
 	color: rgba(255,255,255,.7);
 	font-size: 1.5em;
@@ -560,7 +561,7 @@ ul.contact li a.icon-rss:before
 	#content
 	{
 		float: left;
-		width: 700px;
+		width: 60%;
 	}
 
 /*********************************************************************************/
@@ -570,8 +571,9 @@ ul.contact li a.icon-rss:before
 	#sidebar
 	{
 		float: right;
-		width: 450px;
+		width: 35%;
 	}
+
 
 	#stwo-col
 	{
@@ -592,13 +594,13 @@ ul.contact li a.icon-rss:before
 	#stwo-col .sbox1
 	{
 		float: left;
-		width: 210px;
+		width: 45%;
 	}
 
 	#stwo-col .sbox2
 	{
 		float: right;
-		width: 210px;
+		width: 45%;
 	}
 
 /*********************************************************************************/
@@ -941,3 +943,34 @@ ul.contact li a.icon-rss:before
 {
 	float: right;
 }
+
+
+@media screen and (max-width:1200px) {
+	#content, #sidebar {
+		width:100%;
+	}
+}
+/* ZWIJANE MENU */
+@media screen and (max-width:900px) {
+	.menu-trigger {
+		float:right;
+		display:block;
+	}
+	#menu ul {
+		display:none;
+	}
+	#menu.active ul {
+		display:block;
+	}
+	#menu li {
+		float:none;
+	}
+}
+/* MENU WIDOCZNE PRZEZ CALY CZAS */
+@media screen and (min-width:901px) {
+	.menu-trigger {
+		display:none;
+	}
+}
+
+
