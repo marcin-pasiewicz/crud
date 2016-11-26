@@ -1,0 +1,25 @@
+.navbar-default {
+    background-color:red;
+    border-color:red;
+    padding:20px 0;
+}
+.navbar {
+    border-radius:0;
+    margin-bottom:0;
+}
+.navbar-default .navbar-nav>li>a {
+    color:white;
+}
+.navbar-default .navbar-brand {
+    color:white;
+    text-transform: uppercase;
+    font-weight:bold;
+}
+.gallery {
+    background:black;
+    padding:30px 0;
+}
+footer {
+    background:black;
+    color:white;
+}
