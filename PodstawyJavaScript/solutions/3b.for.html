@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>3b.For</title>
+</head>
+<body>
+
+<script>
+
+    /* Gramy w kasynie.
+     * Startujemy ze 105 zł
+     * Jeden zakład wynosi 10 zł
+     * Jesteśmy wyjątkowo pechowi i każdą rundę przegrywamy.
+     * Gramy tak długo aż nie będzie mnie stać na dalszą grę.
+     * Napisz pętlę for, która pokaże stan konta po każdej grze
+     */
+
+    var zaklad = 12,
+            kasa = 89;
+
+    for ( ; kasa >= zaklad ; kasa -= zaklad) {
+        // jedna gra w ruletke
+        console.log('zostalo mi', kasa, 'gram dalej');
+    }
+
+    console.log('splukalem sie, zostalo mi', kasa);
+
+
+</script>
+
+</body>
+</html>

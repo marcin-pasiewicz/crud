@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>2b.Promos</title>
+</head>
+<body>
+
+<script>
+	var date = new Date(),
+			day = date.getDay(),
+			minute = date.getMinutes(),
+			hour = date.getHours();
+
+	/* Piszecie serwis do promocyjnej sprzedaży produktów.
+	 * Sklep udziela rabatu według następujących zasad:
+	 *  - 20% - w godzinach  <12.45 - 13.00), <15.45 - 16.00), <18.45 - 19.00) we wszystkie dni tygodnia poza niedzielą
+	 *  - 10% - w trakcie ostatnich 3 minuty każdej godziny
+	 *  - Brak promocji - pozostałe przypadki
+	 *
+	 * Zawsze aplikowana jest wyższa ze zniżek.
+	 * Napisz funkcję, która wyświetli na konsoli jaka aktualnie obowiązuje zniżka
+	 * Masz do dyspozycji zmienne day, minute, hour
+	 *
+	 * */
+
+	// day - <0;6>, 0 to niedziela
+	// minute - <0;59>
+	// hour - <0;23>
+
+
+	function showPromo(day, hour, minute) {
+		if ( day !== 0 && (hour == 12 || hour == 15 || hour == 18) && minute >= 45) {
+			console.log('20%');
+		} else if (minute >= 57) {
+			console.log('10%');
+		} else {
+			console.log('brak promocji');
+		}
+	}
+
+	showPromo(0,18,12); //bp
+	showPromo(0,18,46); //bp
+	showPromo(0,15,46); //bp
+	showPromo(2,15,46); //20
+	showPromo(2,15,59); //20
+	showPromo(0,19,58); //10
+
+
+
+</script>
+
+</body>
+</html>
