@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zadanie 13 - testy</title>
+  <link rel="stylesheet" href="css/qunit-2.0.1.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="js/qunit-2.0.1.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script>
+    (function($) {
+
+      var data = {
+        contacts:[
+          {name: 'a', surname: 'b', email: 'a@b.com', telephone: '111',},
+          {name: 'c', surname: 'd', email: 'c@d.com', telephone: '222',},
+        ]
+      };
+
+      // funkcja obsługująca zdarzenie kliknięcia kontaktu
+      function contactClick() {
+        // this - kliknięty element
+        // $this - kliknięty element - kolekcja jQuery
+        var $this = $(this);
+        // dezaktywuj podświetlenie wszystkich podświetlonych kontaktów
+        $('.active').removeClass('active');
+        // aktywuj podświetlenie klikniętego elementu
+        $this.addClass('active');
+        // odczytaj identyfikator kontaktu
+        var id = $this.attr('data-id');
+        // odczytaj z bazy danych kontakt, na bazie identyfikatora
+        var contact = data.contacts[id];
+        // wyświetl kontakt
+        displayContact(contact);
+      }
+
+      // funkcja wyświetla kontakt
+      // przyjmuje, przykładowo:
+
+      // contact: {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'}
+      function displayContact(contact) {
+        // wczytaj element wyświetlający imię i nazwisko
+        var $fullName = $('#fullname');
+        // utwórz pełne imię i nazwisko kontaktu
+        var fullName = getFullName(contact);
+        // ustaw pełne imię kontaktu, w elemencie wyświetlającym je
+        $fullName.text(fullName);
+        // ustaw telefon kontaktu w elemencie wyświetlającym go
+        $('#tel').text(contact.telephone);
+        // ustaw email kontaktu w elemencie wyświetlającym go
+        $('#email').text(contact.email);
+      }
+
+      // funkcja tworzy pełne imię i nazwisko kontaktu
+      // przyjmuje, przykładowo:
+
+      // contact: {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'}
+      function getFullName(contact) {
+        var fullName = '';
+        // jeśli kontakt jest pusty, lub jest obiektem który nie ma pola 'name'
+        if (!contact || !contact.name) {
+          // zwróć pusty ciąg
+          return fullName;
+        }
+        fullName = contact.name;
+        // jeśli kontakt jest obiektem który nie ma pola 'surname'
+        if (!contact.surname) {
+          // zwróć samo imię
+          return fullName;
+        }
+        // zwróć imię i nazwisko oddzielone spacją
+        fullName = contact.name + ' ' + contact.surname;
+        return fullName;
+      }
+
+      // funkcja tworzy dla zadanego indeksu i kontaktu, przycisk w liście kontaktów
+      // przyjmuje, przykładowo:
+
+      // key: 0,
+      // contact: {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'}
+      function addContactFromData(key, contact) {
+        // utwórz pełne imię i nazwisko kontaktu
+        var fullName = getFullName(contact);
+        // utwórz przycisk kontaktu - nadaj mu etykietę pełnego imienia i nazwiska
+        var $contactButton = $('<a href="#" class="list-group-item">' + fullName + '</a>');
+        // dodaj przycisk do listy kontaktów
+        $('#contact-list').append($contactButton);
+        // nadaj przyciskowi atrybut 'data-id' o wartości key.
+        // (wartość key to indeks kontaktu w bazie danych)
+        $contactButton.attr('data-id', key);
+        // spraw, aby przycisk po kliknięciu uruchamiał funkcję 'contactClick'
+        $contactButton.click(contactClick);
+      }
+
+      // przetwórz bazę danych kontaktów
+      // przyjmuje, przykładowo:
+
+      // contacts: [
+      // {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'},
+      // {name: 'imie2', surname: 'nazwisko2', telephone: 222, email: 'email2@email.com'},
+      // ]
+      function processContacts(contacts) {
+        // dla każdego kontaktu z tablicy kontaktów, wywołaj funkcję:
+        // addContactFromData(identyfikator, kontakt)
+        // addContactFromData(0, {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'})
+        $.each(contacts, addContactFromData);
+      }
+
+      // funkcja inicjująca aplikację
+      function init(contacts) {
+        // usuń z elementu przechowującego kontakty, wszystkie tymczasowe elementy
+        $('#contact-list').empty();
+        // przetwórz bazę danych kontaktów
+        processContacts(contacts);
+        // pobierz pierwszy kontakt z bazy
+        var firstContact = contacts[0];
+        // wyświetl pierwszy kontakt
+        displayContact(firstContact);
+        // ZADANIE NA SZÓSTKĘ:
+        // przy uruchomieniu strony z hashem #indeks, wyświetlaj kontakt o odpowiednim indeksie
+        // dla uruchomienia bez hasha (/test.html) lub z samym hashem (/test.html#) testy powinny przechodzić
+        // dla uruchomienia z hashem 0 (/test.html#0) testy powinny przechodzić
+        // dla uruchomienia z hashem 1 (/test.html#1) testy NIE powinny przechodzić
+        // dla uruchomienia z hashem indeksu spoza bazy (/test.html#100) testy powinny przechodzić
+
+      }
+
+      QUnit.module('funkcja displayContact', {
+        before: function() {
+          $('body').append('\
+            <ul id="contact-list" class="list-group">\
+              <a href="#" class="list-group-item">kontakt 1</a>\
+              <a href="#" class="list-group-item">kontakt 2</a>\
+            </ul>\
+          ');
+          $('body').append('\
+            <h1 id="fullname" class="col-md-offset-2">imię nazwisko</h1>\
+            <p id="tel" class="form-control-static">111111111</p>\
+            <p id="email" class="form-control-static">email@example.com</p>\
+          ');
+          init(data.contacts);
+        },
+        after: function() {
+          // $('#contact-list').remove();
+        }
+      });
+      QUnit.test( 'funkcja displayContact', function( assert ) {
+        assert.equal( typeof displayContact, 'function', 'Funkcja "displayContact" jest zadeklarowana' );
+        var firstContactButton = $('.list-group-item[data-id=0]')[0];
+        var $firstContactButton = $(firstContactButton);
+        var secondContactButton = $('.list-group-item[data-id=1]')[0];
+        var eventList = jQuery._data(firstContactButton, 'events');
+        assert.equal(typeof eventList, 'object', 'Pierwszy przycisk kontaktu posiada obsługę click');
+        var $fullName = $('#fullname');
+        var $tel = $('#tel');
+        var $email = $('#email');
+        var fullNameText = $('#fullname').text();
+        var telText = $('#tel').text();
+        var emailText = $('#email').text();
+        assert.equal(fullNameText, 'a b', 'Na start widzimy pełne imię pierwszego kontaktu w elemencie "#fullname"');
+        assert.equal(telText, data.contacts[0].telephone, 'Na start widzimy telefon pierwszego kontaktu w elemencie "#tel"');
+        assert.equal(emailText, data.contacts[0].email, 'Na start widzimy email pierwszego kontaktu w elemencie "#email"');
+      });
+
+    }(jQuery));
+  </script>
+</body>
+</html>

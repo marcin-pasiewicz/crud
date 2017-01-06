@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zadanie 4 - testy</title>
+  <link rel="stylesheet" href="css/qunit-2.0.1.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="js/qunit-2.0.1.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script>
+    (function($) {
+      function getFullName(contact) {
+        var fullName = '';
+        if (!contact || !contact.name) {
+          return fullName;
+        }
+        fullName = contact.name;
+        if (!contact.surname) {
+          return fullName;
+        }
+        fullName = contact.name + ' ' + contact.surname;
+        return fullName;
+      }
+
+      function addContactFromData(key, contact) {
+        var fullName = getFullName(contact);
+        var $contactButton = $('<a href="#" class="list-group-item">' + fullName + '</a>');
+        $('#contact-list').append($contactButton);
+        $contactButton.attr('data-id', key);
+      }
+
+      QUnit.module('funkcja addContactFromData', {
+        before: function() {
+          $('body').append('\
+            <ul id="contact-list" class="list-group">\
+              <a href="#" class="list-group-item">kontakt 1</a>\
+              <a href="#" class="list-group-item">kontakt 2</a>\
+            </ul>\
+          ');
+        },
+        after: function() {
+          // $('#contact-list').remove();
+        }
+      });
+      QUnit.test( 'funkcja addContactFromData', function( assert ) {
+        assert.equal( typeof addContactFromData, 'function', 'Funkcja jest zadeklarowana' );
+        addContactFromData(0, {name: 'a', surname: 'b'});
+        var $lastContact = $('.list-group-item:last-child');
+        var lastContactHTML = $lastContact.prop('outerHTML');
+        var lastContactText = $lastContact.text();
+        assert.equal(lastContactText, 'a b', 'Funkcja tworzy na końcu listy element z poprawną etykietą');
+        assert.equal(lastContactHTML, '<a href="#" class="list-group-item" data-id="0">a b</a>', 'Funkcja tworzy na końcu listy poprawny element HTML i nadaje mu identyfikator');
+      });
+
+    }(jQuery));
+  </script>
+</body>
+</html>

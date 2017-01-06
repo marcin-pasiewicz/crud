@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Książka adresowa</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-3">
+        <h4>Kontakty</h4>
+        <ul id="contact-list" class="list-group">
+          <a href="#" class="list-group-item">kontakt 1</a>
+          <a href="#" class="list-group-item">kontakt 2</a>
+        </ul>
+      </div>
+
+      <div class="col-md-9">
+
+        <div id="contactCard" class="form-horizontal">
+          <h1 id="fullname" class="col-md-offset-2">imię nazwisko</h1>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Telefon</label>
+            <div class="col-sm-10">
+              <p id="tel" class="form-control-static">111111111</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <p id="email" class="form-control-static">email@example.com</p>
+            </div>
+          </div>
+        </div>
+
+        <form id="addNewContactForm" class="form-horizontal">
+          <h1 class="col-md-offset-2">Dodaj nowy kontakt</h1>
+          <div class="form-group">
+            <label for="newContactName" class="col-sm-2 control-label">Imię</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="newContactName" placeholder="imię" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newContactSurname" class="col-sm-2 control-label">Nazwisko</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="newContactSurname" placeholder="nazwisko" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newContactTelephone" class="col-sm-2 control-label">Telefon</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="newContactTelephone" placeholder="telefon">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newContactEmail" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="newContactEmail" placeholder="Email">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button id="addContact" type="submit" class="btn btn-primary">Dodaj</button>
+              <button id="cancelAddContact" type="reset" class="btn btn-default">Anuluj</button>
+            </div>
+            <div class="col-sm-10">
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

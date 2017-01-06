@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zadanie 5 - testy</title>
+  <link rel="stylesheet" href="css/qunit-2.0.1.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="js/qunit-2.0.1.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script>
+    (function($) {
+      function getFullName(contact) {
+        var fullName = '';
+        if (!contact || !contact.name) {
+          return fullName;
+        }
+        fullName = contact.name;
+        if (!contact.surname) {
+          return fullName;
+        }
+        fullName = contact.name + ' ' + contact.surname;
+        return fullName;
+      }
+
+      function addContactFromData(key, contact) {
+        var fullName = getFullName(contact);
+        var $contactButton = $('<a href="#" class="list-group-item">' + fullName + '</a>');
+        $('#contact-list').append($contactButton);
+        $contactButton.attr('data-id', key);
+      }
+
+      function processContacts(contacts) {
+        var result = '';
+        $.each(contacts, function(key, contact) {
+          result += key + ': ' + getFullName(contact) + ', ';
+        });
+        return result;
+      }
+
+      QUnit.module('funkcja processContacts', {
+        before: function() {
+          $('body').append('\
+            <ul id="contact-list" class="list-group">\
+              <a href="#" class="list-group-item">kontakt 1</a>\
+              <a href="#" class="list-group-item">kontakt 2</a>\
+            </ul>\
+          ');
+        },
+        after: function() {
+          // $('#contact-list').remove();
+        }
+      });
+      QUnit.test( 'funkcja processContacts', function( assert ) {
+        assert.equal( typeof processContacts, 'function', 'Funkcja jest zadeklarowana' );
+        var testContacts = [
+          {name: 'a', surname: 'b'},
+          {name: 'c', surname: 'd'},
+        ];
+        var processedContacts = processContacts(testContacts);
+        var expectedResult = '0: a b, 1: c d, ';
+        assert.equal(processedContacts, expectedResult, 'Funkcja przetwarza tablicę, wyciągając pola z obiektw');
+      });
+
+    }(jQuery));
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zadanie 7 - testy</title>
+  <link rel="stylesheet" href="css/qunit-2.0.1.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="js/qunit-2.0.1.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script>
+    (function($) {
+      // funkcja tworzy pełne imię i nazwisko kontaktu
+      // przyjmuje, przykładowo:
+
+      // contact: {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'}
+      function getFullName(contact) {
+        var fullName = '';
+        // jeśli kontakt jest pusty, lub jest obiektem który nie ma pola 'name'
+        if (!contact || !contact.name) {
+          // zwróć pusty ciąg
+          return fullName;
+        }
+        fullName = contact.name;
+        // jeśli kontakt jest obiektem który nie ma pola 'surname'
+        if (!contact.surname) {
+          // zwróć samo imię
+          return fullName;
+        }
+        // zwróć imię i nazwisko oddzielone spacją
+        fullName = contact.name + ' ' + contact.surname;
+        return fullName;
+      }
+
+      // funkcja tworzy dla zadanego indeksu i kontaktu, przycisk w liście kontaktów
+      // przyjmuje, przykładowo:
+
+      // key: 0,
+      // contact: {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'}
+      function addContactFromData(key, contact) {
+        // utwórz pełne imię i nazwisko kontaktu
+        var fullName = getFullName(contact);
+        // utwórz przycisk kontaktu - nadaj mu etykietę pełnego imienia i nazwiska
+        var $contactButton = $('<a href="#" class="list-group-item">' + fullName + '</a>');
+        // dodaj przycisk do listy kontaktów
+        $('#contact-list').append($contactButton);
+        // nadaj przyciskowi atrybut 'data-id' o wartości key.
+        // (wartość key to indeks kontaktu w bazie danych)
+        $contactButton.attr('data-id', key);
+        $contactButton.click(function () {});
+      }
+
+      // przetwórz bazę danych kontaktów
+      // przyjmuje, przykładowo:
+
+      // contacts: [
+      // {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'},
+      // {name: 'imie2', surname: 'nazwisko2', telephone: 222, email: 'email2@email.com'},
+      // ]
+      function processContacts(contacts) {
+        // dla każdego kontaktu z tablicy kontaktów, wywołaj funkcję:
+        // addContactFromData(identyfikator, kontakt)
+        // addContactFromData(0, {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'})
+        $.each(contacts, addContactFromData);
+      }
+
+      // funkcja inicjująca aplikację
+      // przyjmuje, przykładowo:
+
+      // contacts: [
+      // {name: 'imie', surname: 'nazwisko', telephone: 111, email: 'email@email.com'},
+      // {name: 'imie2', surname: 'nazwisko2', telephone: 222, email: 'email2@email.com'},
+      // ]
+      function init(contacts) {
+        // usuń z elementu przechowującego kontakty, wszystkie tymczasowe elementy
+        $('#contact-list').empty();
+        // przetwórz bazę danych kontaktów
+        processContacts(contacts);
+      }
+
+      QUnit.module('funkcja addContactFromData', {
+        before: function() {
+          $('body').append('\
+            <ul id="contact-list" class="list-group">\
+              <a href="#" class="list-group-item">kontakt 1</a>\
+              <a href="#" class="list-group-item">kontakt 2</a>\
+            </ul>\
+          ');
+          var testContacts = [
+            {name: 'a', surname: 'b'},
+            {name: 'c', surname: 'd'},
+          ];
+          init(testContacts);
+        },
+        after: function() {
+          // $('#contact-list').remove();
+        }
+      });
+      QUnit.test( 'funkcja addContactFromData', function( assert ) {
+        assert.equal( typeof addContactFromData, 'function', 'Funkcja "addContactFromData" jest zadeklarowana' );
+        var firstContactButton = $('.list-group-item[data-id=0]')[0];
+        var eventList = jQuery._data(firstContactButton, 'events');
+        assert.equal(typeof eventList, 'object', 'Pierwszy przycisk kontaktu posiada obsługę click');
+      });
+
+    }(jQuery));
+  </script>
+</body>
+</html>

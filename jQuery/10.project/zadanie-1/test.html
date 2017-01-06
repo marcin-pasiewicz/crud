@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Zadanie 1 - testy</title>
+  <link rel="stylesheet" href="css/qunit-2.0.1.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="js/qunit-2.0.1.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script>
+    (function($) {
+      function getFullName(contact) {
+        // TODO: zaimplementuj funkcję tak, aby dla zadanego obiektu zawierającego pola
+        // 'name' i 'surname', zwrociła ciąg stanowiący połączenie imienia i nazwiska (oddzielone spacją)
+        // UWAGA: zakładamy że obiekt musi mieć imię. jeśłi go nie ma, zwracamy pusty ciąg
+        // UWAGA: nazwisko jest opcjonalne. jeśli obiekt go nie posiada, zwracamy samo imię
+      }
+
+      QUnit.test( 'funkcja getFullName', function( assert ) {
+        assert.equal( typeof getFullName, 'function', 'Funkcja jest zadeklarowana' );
+        assert.equal( getFullName({name: 'a', surname: 'b'}), 'a b', 'Funkcja zwraca imię i nazwisko' );
+        assert.equal( getFullName({name: 'a'}), 'a', 'Funkcja zwraca imię' );
+        assert.equal( getFullName(), '', 'Funkcja zwraca pusty ciąg wywołana bez parametru' );
+      });
+    }(jQuery));
+  </script>
+</body>
+</html>
