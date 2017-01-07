@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<script src="lib/jquery-2.1.4.min.js"></script>
+
 <p class="isa" id="p-first">P1 </p>
 <p class="isa">P2 </p>
 <p class="isa">P3 </p>
@@ -14,13 +16,23 @@
 <p class="isa">P6 </p>
 <p class="isa">P7 </p>
 
+<div class="isa">
+	test
+</div>
+
 <script>
 	/*
 	 1. Dodaj bibliotekę jQuery do dokumentu
 	 2. Napisz kod, który przy pomocy jQuery znajdzie wszystkie paragrafy 
 	 	z klasą 'isa' i wynik wyszukiwania zapisze do zmiennej globalnej
-	 3. Sprawdź co znajduje się w zmiennej globalnej (wypisz ją do konsoli)
+	 3. Ukryj znalezione elementy
+	 4. Sprawdź co znajduje się w zmiennej globalnej (wypisz ją do konsoli)
 	*/
+
+	var $list = $('p.isa');
+	console.log($list);
+    $list.hide();
+
 </script>
 
 
