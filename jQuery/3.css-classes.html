@@ -44,6 +44,17 @@ Uczestnicy
 	 (patrz plik style/base.css)
 	 */
 
+	$('.isa').click(function() {
+		$('.isa').removeClass('green-background');
+		$(this).addClass('green-background');
+
+        $('.opis').hide();
+		$('.green-background .opis').show();
+
+//        if ($last) $last.removeClass('green-background');
+//        var $last = $(this);
+	});
+
 </script>
 
 </body>

@@ -3,6 +3,14 @@
 <head lang="en">
 	<meta charset="UTF-8">
 	<title>6.menu</title>
+	<style type="text/css">
+		li.submenu::before {
+			content:'-';
+		}
+		li.submenu.collapsed::before {
+			content:'+';
+		}
+	</style>
 </head>
 <body>
 
@@ -41,13 +49,28 @@
 	</li>
 </ul>
 
+<script src="lib/jquery-2.1.4.min.js"></script>
 <script>
 	/*
 	 Z użyciem jQuery zamień powyższe listy w rozwijane menu, tj.:
 	 1. kliknięcie w nadrzędny element zwija wszystkie podrzędne
-	 2. kliknięcie w zwiniętą gałąź rozwija wszystkie elementy najblizszego poziomu (1 poziom wgłąb)
+	 2. kliknięcie w zwiniętą gałąź rozwija wszystkie elementy najblizszego
+	 	poziomu (1 poziom w głąb)
 	 3. przy zwiniętej pozycji pokazuj znaczek + a przy rozwiniętej -
 	*/
+
+	$('li:has(ul)').addClass('submenu').click(function(e) {
+        e.stopPropagation();
+        if ($(this).children('ul').is(':visible'))
+    	    $(this).find('ul').hide().parent().addClass('collapsed');
+        else
+            $(this).removeClass('collapsed').children('ul').show();
+    });
+
+
+
+
+
 </script>
 
 </body>

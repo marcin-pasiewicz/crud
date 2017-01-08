@@ -6,17 +6,43 @@
 </head>
 <body>
 
+<script src="lib/jquery-2.1.4.min.js"></script>
+
+<p id="message"></p>
+
+<form action="">
+	<input type="radio" name="field" id="first" value="1"/><label for="first"> pierwszy</label>
+	<input type="radio" name="field" id="second" value="2"/><label for="second"> drugi</label>
+	<input type="radio" name="field" id="third" value="3"/><label for="third"> trzeci</label>
+	<input type="submit" id="btn" value="wyślij"/>
+</form>
+
+<p>
+	Dzień dobry, Bartek!
+</p>
+
+
 <script>
 	/*
 	 Z użyciem jQuery wykonaj następujące czynności:
 	 1. stwórz listę 3 radiobuttonów z etykietami odpowiednio: first, second, third
-	 2. każdemu polu radio przypisz atrybut o nazwie value z wartościami odpowiednio: 1, 2, 3
+	 2. każdemu polu radio przypisz atrybut o nazwie value z wartościami
+	 	odpowiednio: 1, 2, 3
 	 3. dodaj przycisk <button> z etykietą "send"
 	 4. dodaj element <p> nad formularzem, w który będziemy wyświetlać wiadomość
-	 5. przypisz do przycisku zdarzenie, aby po kliknięciu w miejscu na wiadomość <p> pojawiał się komunikat
-	 	"wybrałeś wartość X", gdzie X to faktycznie wybrana wartość pola radio (1,2 lub 3)
-	 6. obsłuż przypadek gdy nie zostałą wybrana żadna pozycja radio komunikatem "wybierz jedną z opcji"
+	 5. przypisz do przycisku zdarzenie, aby po kliknięciu w miejscu na wiadomość
+	 	<p> pojawiał się komunikat "wybrałeś wartość X", gdzie X to faktycznie
+	 	wybrana wartość pola radio (1,2 lub 3)
+	 6. obsłuż przypadek gdy nie zostałą wybrana żadna pozycja radio komunikatem
+	 	"wybierz jedną z opcji"
 	*/
+
+	$('input[type=submit]').click(function(event){
+	    event.preventDefault();
+	    var value = $('input[type=radio]:checked').val();
+        $('p#message').text(value ? 'wybrałeś opcje ' + value : 'nie wybrałeś żadnej opcji');
+	});
+
 </script>
 
 </body>
