@@ -12,12 +12,19 @@
 <script src="lib/jquery-2.1.4.min.js"></script>
 <script>
 	/*
-	 1. Dopisz kod, który doda obsługę zdarzenia click  na elemencie o id 'rectangle' (zielony prostokąt)
+	 1. Dopisz kod, który doda obsługę zdarzenia click  na elemencie o id 'rectangle'
+	 	(zielony prostokąt)
 	 2. Po kliknięciu prostokąt ma dwukrotnie zwiększyć swoją  wysokość i szerokość
 	 3. Zmiana na być animowana i trwać 1.5s
 	 */
-
-
+	var initialWidth = parseInt($('#rectangle').css('width'));
+	var initialHeight = parseInt($('#rectangle').css('height'));
+	$('#rectangle').click(function() {
+		$(this).animate({
+		    width:initialWidth*2,
+			height:initialHeight*2
+		}, 1500);
+	});
 
 </script>
 

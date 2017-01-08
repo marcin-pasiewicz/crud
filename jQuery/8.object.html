@@ -191,6 +191,18 @@
 	/*******************************/
 
 
+	people.forEach(function(person) {
+	    if (person.age >= minAge) {
+			$('#cards').append($('' +
+				'<div class="ppl-card">' +
+                '	<div class="ppl-firstName">'+person.firstName+'</div>' +
+                '	<div class="ppl-lastName">'+person.lastName+'</div>' +
+                '	<div class="ppl-age">'+person.age+'</div>' +
+                '	<div class="ppl-gender">'+person.gender+'</div>' +
+				'</div>'));
+        }
+	});
+
 
 
 
