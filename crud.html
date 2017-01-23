@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CRUD</title>
+    <script type="text/javascript" src="lib/crud.js"></script>
+    <script src="lib/jquery-2.1.4.min.js"></script>
+    <style>
+        .editHeader, #saveBtn {
+            display:none;
+        }
+    </style>
+</head>
+<body>
+
+search <input name="filterQuery" id="filterQuery"/>
+age <select name="filterAge" id="filterAge">
+    <option value="">all</option>
+    <option value="1">20-29</option>
+    <option value="2">30-39</option>
+    <option value="3">40-49</option>
+</select>
+<br/>
+<br/>
+
+<table border="1" id="peopleList" class="display" >
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>gender</th>
+        <th>age</th>
+        <th></th>
+    </tr>
+    <!--<tr>-->
+        <!--<td>1</td>-->
+        <!--<td>Jan Kowalski</td>-->
+        <!--<td>male</td>-->
+        <!--<td>20</td>-->
+        <!--<td><button class="edit">edit</button><button class="delete">del</button></td>-->
+    <!--</tr>-->
+</table>
+
+<h2 class="addHeader">Add new row</h2>
+<h2 class="editHeader">Edit person <span id="editId"></span></h2>
+<form>
+    <label>name:</label>
+    <input name="name" /><br/>
+    <label>gender:</label>
+    <select name="gender"><option value="male">male</option><option value="female">female</option></select><br/>
+    <label>age:</label>
+    <input name="age" /><br/>
+    <button id="addBtn">Add</button>
+    <button id="saveBtn">Save</button>
+</form>
+
+
+<script type="text/javascript">
+    var maxId = 0;
+
+    // funkcja ładująca dane z PEOPLE do tabeli HTML
+    function loadTable() {
+        // czyszczenie wszystkich wierszy tabeli, ktore zawieraja dane
+        $('table tr:has(td)').remove();
+
+        filterQuery = $('#filterQuery').val().toLowerCase();
+        filterAge = $('#filterAge').val();
+
+        console.log('wiek', filterAge);
+
+        people.filter(function(person) {
+            if ((person.firstName.toLowerCase().search(filterQuery) > -1
+                || person.lastName.toLowerCase().search(filterQuery) > -1
+                || person.gender.toLowerCase().search(filterQuery) > -1
+                || person.age.toString().search(filterQuery) > -1
+                || person.id.toString().search(filterQuery) > -1)
+                &&
+                (
+                       (filterAge==1 && person.age>=20 && person.age<=29)
+                    || (filterAge==2 && person.age>=30 && person.age<=39)
+                    || (filterAge==3 && person.age>=40 && person.age<=49)
+                    || !filterAge
+                )
+            )
+                return true;
+        }).forEach(function (person, index) {
+            if (maxId < person.id)
+                maxId = person.id;
+
+            $('table').append('<tr>' +
+                '<td>' + person.id + '</td>' +
+                '<td>' + person.firstName + ' ' + person.lastName + '</td>' +
+                '<td>' + person.gender + '</td>' +
+                '<td>' + person.age + '</td>' +
+                '<td data-id="'+person.id+'">' +
+                '<button class="edit">edit</button>' +
+                '<button class="delete">del</button>' +
+                '</td>' +
+                '</tr>');
+        });
+
+    }
+
+    // poczatkowe wypelnienie tabeli HTML danymi
+    loadTable();
+
+    $('body').on('click', '.delete', function() {
+        personId = parseInt($(this).parent().attr('data-id'));
+        people = people.filter(function(person){
+            return (person.id != personId);
+        });
+        loadTable();
+    });
+
+    $('body').on('click', '.edit', function() {
+        clickedPersonId = parseInt($(this).parent().attr('data-id'));
+        clickedPersonData = people.find(function(person) {
+            return person.id==clickedPersonId;
+        });
+
+        $('input[name=name]').val(clickedPersonData.firstName+' '+clickedPersonData.lastName);
+        $('select[name=gender]').val(clickedPersonData.gender);
+        $('input[name=age]').val(clickedPersonData.age);
+
+        $('.addHeader').hide();
+        $('#editId').text(clickedPersonId).parent().show();
+
+        $('#addBtn').hide();
+        $('#saveBtn').show();
+    });
+
+
+
+
+
+
+    $('#addBtn').click(function(e) {
+        e.preventDefault();
+
+        // rozbicie name na imie i nazwisko
+        fullName = $('input[name=name]').val().split(' ');
+        firstName = fullName[0];
+        fullName.shift();
+        lastName = fullName.join(' ');
+
+        // dodanie nowego człowieka do tablicy PEOPLE
+        people.push({
+            "id":maxId+1,
+            "firstName": firstName,
+            "lastName": lastName,
+            "gender": $('select[name=gender]').val(),
+            "age": $('input[name=age]').val()
+        });
+
+        loadTable();
+    });
+
+
+    $('#saveBtn').click(function(e) {
+        e.preventDefault();
+
+        // rozbicie name na imie i nazwisko
+        fullName = $('input[name=name]').val().split(' ');
+        firstName = fullName[0];
+        fullName.shift();
+        lastName = fullName.join(' ');
+
+        // znajdz element do zmiany
+        editId = $('#editId').text();
+        editIndex = 0;
+        people.forEach(function(person, index) {
+            if (person.id==editId) {
+                editIndex = index;
+            }
+        });
+
+        people[editIndex].firstName = firstName;
+        people[editIndex].lastName = lastName;
+        people[editIndex].age = $('input[name=age]').val();
+        people[editIndex].gender =  $('select[name=gender]').val();
+
+        loadTable();
+    });
+
+
+    $('#filterQuery').keyup(loadTable);
+    $('#filterAge').change(loadTable);
+
+
+</script>
+</body>
+</html>
