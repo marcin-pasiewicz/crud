@@ -17,6 +17,16 @@
         // 'name' i 'surname', zwrociła ciąg stanowiący połączenie imienia i nazwiska (oddzielone spacją)
         // UWAGA: zakładamy że obiekt musi mieć imię. jeśłi go nie ma, zwracamy pusty ciąg
         // UWAGA: nazwisko jest opcjonalne. jeśli obiekt go nie posiada, zwracamy samo imię
+          var emptyString = '';
+          if (contact.surname === undefined){
+              return contact.name
+          }
+          if (!contact || !contact.name) {
+              return emptyString
+          }
+          else{
+          return contact.name + ' ' + contact.surname
+          }
       }
 
       QUnit.test( 'funkcja getFullName', function( assert ) {

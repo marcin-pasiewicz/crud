@@ -29,7 +29,8 @@
         var fullName = getFullName(contact);
         var $contactButton = $('<a href="#" class="list-group-item">' + fullName + '</a>');
         $('#contact-list').append($contactButton);
-        // TODO: Ustawić przyciskowi atrybut 'data-id' odpowiadający parametrowi 'key'
+        //Ustawić przyciskowi atrybut 'data-id' odpowiadający parametrowi 'key'
+          $($contactButton).attr('data-id',key);
       }
 
       QUnit.module('funkcja addContactFromData', {

@@ -34,7 +34,10 @@
 
       function processContacts(contacts) {
         var result = '';
-        // TODO: przejść po tablicy, dopisując do `result` klucz (indeks) i wartości name i surname
+        // przejść po tablicy, dopisując do `result` klucz (indeks) i wartości name i surname
+          $.each(contacts, function (key, contact) {
+              result += key + ': ' + getFullName(contact) + ', ';
+          });
         return result;
       }
 
